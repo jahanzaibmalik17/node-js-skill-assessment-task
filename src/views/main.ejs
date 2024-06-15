@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Skill Assesment Task</title>
+</head>
+
+<body>
+	<h1>Books Management<h1>
+			<!-- make a table of all the available books -->
+			<h2> Books </h2>
+			<table>
+				<tr>
+					<th>Book Name</th>
+					<th>Pages</th>
+					<th>Price</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+				<% if(books){ %>
+					<%books.forEach((book)=> {%>
+						<tr>
+							<td>
+								<%= book.title %>
+							</td>
+							<td>
+								<%= book.page %>
+							</td>
+							<td>
+								<%= book.price %>
+							</td>
+							<td>
+								<%= book.isDeleted %>
+							</td>
+							<td>
+								<%= book.isIssued %>
+							</td>
+							<td>
+								<form id='delete' action='/<%=book._id%>' method='POST'>
+									<input type="hidden" name="_method" value="PUT">
+									<button type="submit" class='ui red basic button'>Delete</button>
+								</form>
+							</td>
+						</tr>
+					<% })%>
+				<% } %>
+			</table>
+			<a class="item" href="/add" method="GET">Add More Books</a>
+			
+			<!-- table  will contain 5 columns
+			book title (book name), 
+			pages (no. of pages in the book), 
+			price (price of the book), 
+			status (availablity of the book), 
+			action (Issue/Return on basis of the availablity)
+			delete (A button to delete the book from the database 
+							(Hint: Set 'isDeleted' field to true in the book schema)) -->
+
+			<!-- Create Add More (Books) button -->
+			<!-- Button Action: -->
+			<!-- -- Open a form to enter the required information of a book -->
+			<!-- -- On submit, book will be added to the database via server api -->
+
+			<h2> Deleted Books </h2>
+			<table>
+				<tr>
+					<th>Book Name</th>
+					<th>Pages</th>
+					<th>Price</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+				<% if(deletedBooks){ %>
+					<%deletedBooks.forEach((book)=> {%>
+						<tr>
+							<td>
+								<%= book.title %>
+							</td>
+							<td>
+								<%= book.page %>
+							</td>
+							<td>
+								<%= book.price %>
+							</td>
+							<td>
+								<%= book.isDeleted %>
+							</td>
+							<td>
+								<%= book.isIssued %>
+							</td>
+						</tr>
+					<% })%>
+				<% }%>
+			</table>
+			<!-- table  will contain 4 columns
+		book title (book name), 
+		pages (no. of pages in the book), 
+		price (price of the book), 
+		status (availablity of the book), 
+		action (Issue/Return on basis of the availablity)-->
+
+</body>
+
+</html>
