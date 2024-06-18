@@ -1,5 +1,6 @@
 const path = require("path");
 const connectDB = require("./config/db");
+require("dotenv").config();
 connectDB();
 
 const express = require("express");
@@ -32,4 +33,5 @@ const bookRoutes = require("./routes/book");
 
 app.use("/", bookRoutes);
 
-app.listen(5000, () => console.log("Server is running on 5000"));
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => console.log("Server is running on 5000"));

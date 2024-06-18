@@ -40,7 +40,7 @@ module.exports.addBook = async (req, res) => {
   }
 };
 
-module.exports.update = async (req, res) => {
+module.exports.update = async (req, res, next) => {
   try {
     const id = mongoose.Types.ObjectId(req.params.id);
     let updatePromise;
@@ -49,7 +49,6 @@ module.exports.update = async (req, res) => {
     } else {
       updatePromise = Books.findByIdAndUpdate(id, { isDeleted: true });
     }
-
     const updatedBooksPromise = Books.find({ isDeleted: false });
     const deletedBooksPromise = Books.find({ isDeleted: true });
     const [update, updatedBooks, deletedBooks] = await Promise.all([
@@ -58,6 +57,7 @@ module.exports.update = async (req, res) => {
       deletedBooksPromise,
     ]);
     res.render("main", { books: updatedBooks, deletedBooks: deletedBooks });
+    next();
   } catch (error) {
     throw error;
   }

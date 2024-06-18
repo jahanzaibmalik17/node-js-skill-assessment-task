@@ -13,7 +13,7 @@
 	<h1>Books Management<h1>
 			<!-- make a table of all the available books -->
 			<h2> Books </h2>
-			<table>
+			<table class="table">
 				<tr>
 					<th>Book Name</th>
 					<th>Pages</th>
@@ -40,19 +40,19 @@
 								<%= book.isIssued %>
 							</td>
 							<td>
-								<a href='/<%=book._id%>/edit' method="GET" class='ui basic red button'>Edit</a>
+								<a href='/<%=book._id%>/edit' method="GET" class="btn btn-primary">Edit</a>
 							</td>
 							<td>
 								<form id='delete' action='/<%=book._id%>' method='POST'>
 									<input type="hidden" name="_method" value="PUT">
-									<button type="submit" class='ui red basic button'>Delete</button>
+									<button type="submit" class="btn btn-danger">Delete</button>
 								</form>
 							</td>
 						</tr>
 					<% })%>
 				<% } %>
 			</table>
-			<a class="item" href="/add" method="GET">Add More Books</a>
+			<a class="btn btn-primary" href="/add" method="GET">Add More Books</a>
 			
 			<!-- table  will contain 5 columns
 			book title (book name), 
@@ -69,7 +69,7 @@
 			<!-- -- On submit, book will be added to the database via server api -->
 
 			<h2> Deleted Books </h2>
-			<table>
+			<table class="table">
 				<tr>
 					<th>Book Name</th>
 					<th>Pages</th>
