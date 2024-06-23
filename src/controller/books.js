@@ -42,7 +42,6 @@ module.exports.addBook = async (req, res) => {
 module.exports.update = async (req, res) => {
   try {
     const id = mongoose.Types.ObjectId(req.params.id);
-    let updatePromise;
     if (Object.keys(req.body).length > 0) {
       await Books.findByIdAndUpdate(id, req.body);
     } else {
