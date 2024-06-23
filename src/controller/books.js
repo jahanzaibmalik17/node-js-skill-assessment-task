@@ -44,17 +44,10 @@ module.exports.update = async (req, res) => {
     const id = mongoose.Types.ObjectId(req.params.id);
     let updatePromise;
     if (Object.keys(req.body).length > 0) {
-      updatePromise = Books.findByIdAndUpdate(id, req.body);
+      await Books.findByIdAndUpdate(id, req.body);
     } else {
-      updatePromise = Books.findByIdAndUpdate(id, { isDeleted: true });
+      await Books.findByIdAndUpdate(id, { isDeleted: true });
     }
-    const updatedBooksPromise = Books.find({ isDeleted: false });
-    const deletedBooksPromise = Books.find({ isDeleted: true });
-    await Promise.all([
-      updatePromise,
-      updatedBooksPromise,
-      deletedBooksPromise,
-    ]);
     res.redirect("/");
   } catch (error) {
     throw error;
