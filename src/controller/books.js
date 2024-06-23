@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 module.exports.getALL = async (req, res) => {
   try {
-    const booksPromise = await Books.find({ isDeleted: false });
+    const booksPromise = Books.find({ isDeleted: false });
     const deletedBooksPromise = Books.find({ isDeleted: true });
     const [books, deletedBooks] = await Promise.all([
       booksPromise,
@@ -18,11 +18,10 @@ module.exports.getALL = async (req, res) => {
 module.exports.saveBook = async (req, res) => {
   try {
     req.body.authorID = mongoose.Types.ObjectId();
-    const addBooksPromise = await Books.create(req.body);
-    const booksPromise = await Books.find({ isDeleted: false });
+    await Books.create(req.body);
+    const booksPromise = Books.find({ isDeleted: false });
     const deletedBooksPromise = Books.find({ isDeleted: true });
-    const [addBooks, books, deletedBooks] = await Promise.all([
-      addBooksPromise,
+    const [books, deletedBooks] = await Promise.all([
       booksPromise,
       deletedBooksPromise,
     ]);
